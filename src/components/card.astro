@@ -1,0 +1,12 @@
+---
+import { type Stylable } from "../types";
+import { twm } from "../utils";
+
+interface Props extends Stylable {}
+
+const { classNames } = Astro.props;
+---
+
+<div class={twm("bg-ctp-mantle rounded-sm", classNames)}>
+  <slot />
+</div>

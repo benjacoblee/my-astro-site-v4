@@ -1,0 +1,77 @@
+---
+import "../styles/global.css";
+import { getNav, twm } from "../utils";
+import BaseHead from "./base-head.astro";
+import Card from "./card.astro";
+import Link from "./link.astro";
+
+interface Props {
+  title: string;
+
+  fullScreen?: boolean;
+}
+
+const { fullScreen = false, title } = Astro.props;
+const navContents = getNav();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <BaseHead title={title} />
+  </head>
+  <body
+    class={twm(
+      "bg-ctp-base text-ctp-yellow flex flex-col",
+      fullScreen ? "h-screen" : "min-h-dvh",
+    )}
+  >
+    <Card classNames="flex h-40 items-center justify-center">
+      <Link
+        to="/"
+        classNames="text-4xl! font-bold! font-branding! no-underline!"
+        >bnjmn.</Link
+      >
+    </Card>
+    <nav class="mx-auto flex w-[75%] items-center justify-center py-12">
+      <div class="flex gap-4">
+        {
+          Object.values(navContents).map(({ to, text }) => (
+            <Link to={to}>{text}</Link>
+          ))
+        }
+      </div>
+    </nav>
+    <article class="mx-auto w-[90%] flex-1 pb-8 md:w-[60%]">
+      <slot />
+    </article>
+    <!-- <Card classNames="p-2">
+      <Footer />
+    </Card> -->
+    <script>
+      document.querySelectorAll("pre").forEach((pre) => {
+        pre.classList.add("relative", "group");
+
+        const btn = document.createElement("button");
+        btn.classList = "pre-btn";
+        btn.textContent = "Copy";
+
+        btn.addEventListener("click", () => {
+          const code = pre.querySelector("code");
+          if (code) {
+            navigator.clipboard.writeText(code.innerText);
+          }
+
+          btn.textContent = "Copied!";
+
+          setTimeout(() => {
+            btn.textContent = "Copy";
+          }, 1000);
+        });
+
+        pre.appendChild(btn);
+      });
+    </script>
+  </body>
+</html>

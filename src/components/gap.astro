@@ -1,0 +1,12 @@
+---
+import { type Stylable } from "../types";
+import { twm } from "../utils";
+
+interface Props extends Stylable {}
+
+const { classNames } = Astro.props;
+---
+
+<div class={twm("flex flex-col space-y-6", classNames)}>
+  <slot />
+</div>

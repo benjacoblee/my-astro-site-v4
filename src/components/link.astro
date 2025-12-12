@@ -1,0 +1,12 @@
+---
+import { type Stylable } from "../types";
+import { twm } from "../utils";
+
+interface Props extends Stylable {
+  to: string;
+}
+
+const { classNames, to } = Astro.props;
+---
+
+<a class={twm("text-ctp-blue underline", classNames)} href={to}> <slot /></a>

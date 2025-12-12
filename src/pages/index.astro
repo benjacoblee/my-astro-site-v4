@@ -1,16 +1,48 @@
 ---
+import Card from "../components/card.astro";
+import Layout from "../components/layout.astro";
+import Link from "../components/link.astro";
+import { NavKey } from "../types";
+import { getNav } from "../utils";
 
+const navContents = getNav({
+  omit: [NavKey.HOME],
+});
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Home Page" fullScreen>
+  <div
+    class="absolute top-1/2 left-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col gap-4"
+  >
+    <Card classNames="w-full px-2 py-4">
+      <div class="flex w-full flex-col">
+        {
+          Object.values(navContents).map(({ to, text }, idx) => {
+            return (
+              <div class="text-ctp-yellow flex justify-between gap-2">
+                <div>
+                  <Link classNames="text-ctp-yellow" to={to}>
+                    {text}
+                  </Link>
+                </div>
+                <div class="dots" />
+                <div>{idx + 1}</div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </Card>
+  </div>
+</Layout>
+
+<style>
+  .dots {
+    overflow: hidden;
+    text-wrap: nowrap;
+  }
+
+  .dots::after {
+    content: "...............................................................................";
+  }
+</style>
