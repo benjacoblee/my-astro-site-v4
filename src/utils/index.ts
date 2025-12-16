@@ -31,8 +31,11 @@ export const twm = twMerge;
 export const fmtDate = (date: Date) =>
   new Intl.DateTimeFormat("en-US").format(date);
 
-export const getExcerpt = (body?: string) =>
-  `${body?.split(".").slice(0, 2).join(".")}...`;
+export const getExcerpt = (body?: string) => {
+  const cleaned = body?.replace(/^#{1,6}\s*/gm, "");
+
+  return `${cleaned?.split(".").slice(0, 2).join(".")}...`;
+};
 
 export const getNav = (opts?: GetNavOpts) => {
   if (!opts) return navContents;

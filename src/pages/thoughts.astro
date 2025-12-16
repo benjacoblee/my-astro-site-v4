@@ -6,6 +6,7 @@ import Heading from "../components/heading.astro";
 import Layout from "../components/layout.astro";
 import Link from "../components/link.astro";
 import { getExcerpt } from "../utils";
+import { marked } from "marked";
 
 const thoughts = await getCollection("thoughts");
 ---
@@ -13,18 +14,25 @@ const thoughts = await getCollection("thoughts");
 <Layout title="/thoughts">
   <Gap>
     <Heading variant="h1">Thoughts</Heading>
-    <ul class="list-none!">
+    <ul class="flex list-none! flex-col gap-y-2">
       {
-        thoughts.map(({ data: { slug, title }, body }) => (
-          <Card classNames="py-2 px-4 flex flex-col gap-2">
-            <div>
-              <li>
-                <Link to={`/thoughts/${slug}`}>{title}</Link>
-              </li>
-            </div>
-            <p class="">{getExcerpt(body)}</p>
-          </Card>
-        ))
+        thoughts
+          .sort(
+            ({ data: { date: aDate } }, { data: { date: bDate } }) =>
+              bDate.getTime() - aDate.getTime(),
+          )
+          .map(({ data: { description, slug, title }, body }) => (
+            <Card classNames="py-2 px-4 flex flex-col gap-2">
+              <div>
+                <li>
+                  <Link classNames="font-bold" to={`/thoughts/${slug}`}>
+                    {title.toLowerCase()}
+                  </Link>
+                </li>
+              </div>
+              <p set:html={marked.parse(description ?? getExcerpt(body))} />
+            </Card>
+          ))
       }
     </ul>
   </Gap>

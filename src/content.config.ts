@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 
-import { glob, file } from "astro/loaders";
+import { glob } from "astro/loaders";
 
 import { z } from "astro/zod";
 
@@ -11,6 +11,7 @@ const thoughts = defineCollection({
     title: z.string(),
     date: z.date(),
     draft: z.boolean(),
+    description: z.optional(z.string()),
   }),
 });
 

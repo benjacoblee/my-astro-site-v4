@@ -28,10 +28,10 @@ const { Content } = await render(thought);
 
 <Layout title={title}>
   <Gap classNames="bg-ctp-mantle p-4">
-    <Heading variant="h1">{title}</Heading>
-    <Card classNames="w-fit p-1">
-      <p class="text-xs underline">{fmtDate(date)}</p>
-    </Card>
+    <Heading variant="h1">{title} </Heading>
+    <div class="w-fit border-b border-dashed text-xs md:text-base">
+      {fmtDate(date)}
+    </div>
     <Content />
   </Gap>
 </Layout>
