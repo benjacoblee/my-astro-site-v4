@@ -1,10 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
-import Card from "../../components/card.astro";
 import Gap from "../../components/gap.astro";
 import Heading from "../../components/heading.astro";
 import Layout from "../../components/layout.astro";
-import { fmtDate } from "../../utils/index";
+import DateText from "../../components/date-text.astro";
+import Card from "../../components/card.astro";
 
 export async function getStaticPaths() {
   const thoughts = await getCollection("thoughts");
@@ -27,11 +27,11 @@ const { Content } = await render(thought);
 ---
 
 <Layout title={title}>
-  <Gap classNames="bg-ctp-mantle p-4">
-    <Heading variant="h1">{title} </Heading>
-    <div class="w-fit border-b border-dashed text-xs md:text-base">
-      {fmtDate(date)}
-    </div>
-    <Content />
-  </Gap>
+  <Card classNames="p-0">
+    <Gap classNames="p-4">
+      <Heading variant="h1">{title} </Heading>
+      <DateText date={date} />
+      <Content />
+    </Gap>
+  </Card>
 </Layout>

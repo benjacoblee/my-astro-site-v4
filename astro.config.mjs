@@ -15,6 +15,5 @@ export default defineConfig({
       theme: "catppuccin-mocha",
     },
   },
-
   adapter: netlify(),
 });

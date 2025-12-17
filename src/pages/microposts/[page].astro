@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from "astro:content";
+
+import Card from "../../components/card.astro";
+import Gap from "../../components/gap.astro";
+import Heading from "../../components/heading.astro";
+import Layout from "../../components/layout.astro";
+import Link from "../../components/link.astro";
+import type { Micropost, Paginated, PaginateFn } from "../../types";
+import DateText from "../../components/date-text.astro";
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFn<Micropost>;
+}) {
+  const microposts = await getCollection("microposts");
+
+  const sorted = microposts.sort(
+    (a, b) => b.data.modifiedDate.getTime() - a.data.modifiedDate.getTime(),
+  );
+
+  return paginate(sorted, { pageSize: 5 });
+}
+
+const { page }: { page: Paginated<Micropost> } = Astro.props;
+
+const microposts = await Promise.all(
+  page.data.map(async (micropost) => ({
+    rendered: await render(micropost),
+    slug: micropost.data.title,
+    date: micropost.data.modifiedDate,
+  })),
+);
+---
+
+<Layout title="/thoughts">
+  <Gap>
+    <Heading variant="h1">Microposts</Heading>
+    <ul class="flex list-none flex-col gap-y-4">
+      {
+        microposts.map(({ rendered: { Content }, date, slug }) => (
+          <Link
+            to={`/microposts/${slug}`}
+            classNames="block text-current no-underline!"
+          >
+            <Card classNames="flex flex-col gap-2" isNeoBrutal>
+              <DateText date={date} />
+              <div class="line-clamp-4">
+                <Content />
+              </div>
+            </Card>
+          </Link>
+        ))
+      }
+    </ul>
+    <div class="flex justify-center gap-2">
+      {page.url.prev && <Link to={page.url.prev}>Prev Page</Link>}
+      {page.url.next && <Link to={page.url.next}>Next Page</Link>}
+    </div>
+  </Gap>
+</Layout>

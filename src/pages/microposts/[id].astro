@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from "astro:content";
+import Gap from "../../components/gap.astro";
+import Heading from "../../components/heading.astro";
+import Layout from "../../components/layout.astro";
+import DateText from "../../components/date-text.astro";
+import Card from "../../components/card.astro";
+
+export async function getStaticPaths() {
+  const microposts = await getCollection("microposts");
+
+  return microposts.map((micropost) => {
+    const { data } = micropost;
+    const { title } = data;
+
+    return {
+      params: { id: title },
+      props: { micropost },
+    };
+  });
+}
+
+const { micropost } = Astro.props;
+const {
+  data: { title, modifiedDate },
+} = micropost;
+const { Content } = await render(micropost);
+---
+
+<Layout title={title}>
+  <Card classNames="p-0">
+    <Gap classNames="p-4">
+      <Heading variant="h1">{title}</Heading>
+      <DateText date={modifiedDate} />
+      <Content />
+    </Gap>
+  </Card>
+</Layout>

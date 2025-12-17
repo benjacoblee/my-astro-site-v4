@@ -1,0 +1,16 @@
+---
+import type { Stylable } from "../types";
+import { fmtDate, twm } from "../utils";
+
+interface Props extends Stylable {
+  date: Date;
+}
+
+const { classNames, date } = Astro.props;
+---
+
+<div
+  class={twm("w-fit border-b border-dashed text-xs md:text-base", classNames)}
+>
+  {fmtDate(date)}
+</div>

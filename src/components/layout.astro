@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { NavKey } from "../types";
 import { getNav, twm } from "../utils";
 import BaseHead from "./base-head.astro";
 import Card from "./card.astro";
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const { fullScreen = false, title } = Astro.props;
-const navContents = getNav();
+const navContents = getNav({ omit: [NavKey.TUNES] });
 ---
 
 <html lang="en">

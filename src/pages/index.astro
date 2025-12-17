@@ -5,16 +5,14 @@ import Link from "../components/link.astro";
 import { NavKey } from "../types";
 import { getNav } from "../utils";
 
-const navContents = getNav({
-  omit: [NavKey.HOME],
-});
+const navContents = getNav({ omit: [NavKey.HOME, NavKey.TUNES] });
 ---
 
 <Layout title="Home Page" fullScreen>
   <div
-    class="absolute top-1/2 left-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col gap-4"
+    class="w-inherit absolute top-1/2 left-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col gap-4"
   >
-    <Card classNames="w-full px-2 py-4">
+    <Card classNames="w-full">
       <div class="flex w-full flex-col">
         {
           Object.values(navContents).map(({ to, text }, idx) => {

@@ -15,4 +15,12 @@ const thoughts = defineCollection({
   }),
 });
 
-export const collections = { thoughts };
+const microposts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/data/microposts" }),
+  schema: z.object({
+    title: z.string(),
+    modifiedDate: z.date(),
+  }),
+});
+
+export const collections = { thoughts, microposts };

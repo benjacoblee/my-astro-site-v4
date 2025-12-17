@@ -2,11 +2,26 @@
 import { type Stylable } from "../types";
 import { twm } from "../utils";
 
-interface Props extends Stylable {}
+interface Props extends Stylable {
+  isNeoBrutal?: boolean;
+}
 
-const { classNames } = Astro.props;
+const { classNames, isNeoBrutal = false } = Astro.props;
 ---
 
-<div class={twm("bg-ctp-mantle rounded-sm", classNames)}>
+<div
+  class={twm(
+    "bg-ctp-mantle rounded-sm py-2 px-4",
+    classNames,
+    isNeoBrutal && "neo-brutal",
+  )}
+>
   <slot />
 </div>
+
+<style>
+  .neo-brutal {
+    box-shadow: 6px 8px 0 #000;
+    border: 1px solid black;
+  }
+</style>

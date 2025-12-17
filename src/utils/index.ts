@@ -16,12 +16,16 @@ const navContents: Record<NavKey, ContentLink> = {
     to: "/thoughts",
     text: "Thoughts",
   },
+  [NavKey.MICROPOSTS]: {
+    to: "/microposts/1",
+    text: "Microposts",
+  },
   [NavKey.TUNES]: {
     to: "/tunes",
     text: "Tunes",
   },
   [NavKey.CONTACT]: {
-    to: "/contact",
+    to: "contact@bnjmn.me",
     text: "Contact",
   },
 };

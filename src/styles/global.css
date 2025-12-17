@@ -73,7 +73,7 @@ pre {
 }
 
 code {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 p code {
@@ -99,6 +99,11 @@ p code {
 
 .w-inherit {
   width: inherit;
+}
+
+.brutal-clickable {
+  box-shadow: 6px 8px 0 #000;
+  border: 1px solid black;
 }
 
 p,

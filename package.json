@@ -3,10 +3,12 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "predev": "tsx src/scripts/fetch-gists.ts",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint 'src/**/*.{js,ts,jsx,tsx,astro}'"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.6.3",
@@ -19,10 +21,17 @@
   "devDependencies": {
     "@catppuccin/tailwindcss": "^1.0.0",
     "@tailwindcss/typography": "^0.5.19",
+    "@typescript-eslint/parser": "^8.50.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.39.2",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "lefthook": "^2.0.12",
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-astro-organize-imports": "^0.4.11",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "tsx": "^4.21.0"
   }
 }
