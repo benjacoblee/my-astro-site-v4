@@ -2,12 +2,12 @@
 import { getCollection, render } from "astro:content";
 
 import Card from "../../components/card.astro";
+import DateText from "../../components/date-text.astro";
 import Gap from "../../components/gap.astro";
 import Heading from "../../components/heading.astro";
 import Layout from "../../components/layout.astro";
 import Link from "../../components/link.astro";
 import type { Micropost, Paginated, PaginateFn } from "../../types";
-import DateText from "../../components/date-text.astro";
 
 export async function getStaticPaths({
   paginate,
@@ -17,7 +17,10 @@ export async function getStaticPaths({
   const microposts = await getCollection("microposts");
 
   const sorted = microposts.sort(
-    (a, b) => b.data.modifiedDate.getTime() - a.data.modifiedDate.getTime(),
+    (
+      { data: { modifiedDate: aModifiedDate } },
+      { data: { modifiedDate: bModifiedDate } },
+    ) => bModifiedDate.getTime() - aModifiedDate.getTime(),
   );
 
   return paginate(sorted, { pageSize: 5 });
@@ -26,11 +29,17 @@ export async function getStaticPaths({
 const { page }: { page: Paginated<Micropost> } = Astro.props;
 
 const microposts = await Promise.all(
-  page.data.map(async (micropost) => ({
-    rendered: await render(micropost),
-    slug: micropost.data.title,
-    date: micropost.data.modifiedDate,
-  })),
+  page.data.map(async (micropost) => {
+    const {
+      data: { title: slug, modifiedDate: date },
+    } = micropost;
+
+    return {
+      rendered: await render(micropost),
+      slug,
+      date,
+    };
+  }),
 );
 ---
 

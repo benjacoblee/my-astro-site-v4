@@ -1,13 +1,13 @@
 ---
 import { getCollection } from "astro:content";
+import { marked } from "marked";
 import Card from "../components/card.astro";
+import DateText from "../components/date-text.astro";
 import Gap from "../components/gap.astro";
 import Heading from "../components/heading.astro";
 import Layout from "../components/layout.astro";
 import Link from "../components/link.astro";
 import { getExcerpt } from "../utils";
-import { marked } from "marked";
-import DateText from "../components/date-text.astro";
 
 const thoughts = await getCollection("thoughts");
 ---

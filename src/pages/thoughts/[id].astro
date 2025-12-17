@@ -8,9 +8,11 @@ import Card from "../../components/card.astro";
 
 export async function getStaticPaths() {
   const thoughts = await getCollection("thoughts");
+
   return thoughts.map((thought) => {
-    const { data } = thought;
-    const { slug } = data;
+    const {
+      data: { slug },
+    } = thought;
 
     return {
       params: { id: slug },
@@ -29,7 +31,7 @@ const { Content } = await render(thought);
 <Layout title={title}>
   <Card classNames="p-0">
     <Gap classNames="p-4">
-      <Heading variant="h1">{title} </Heading>
+      <Heading variant="h1">{title}</Heading>
       <DateText date={date} />
       <Content />
     </Gap>

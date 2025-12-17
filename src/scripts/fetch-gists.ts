@@ -31,7 +31,7 @@ async function fetchAllGistsRecursive(
 async function fetchAllGists() {
   const all = await fetchAllGistsRecursive();
 
-  return all.filter((g) => g.description === "#micropost");
+  return all.filter(({ description }) => description === "#micropost");
 }
 
 async function saveGists() {
@@ -53,7 +53,7 @@ async function saveGists() {
 
       if (!files.length) continue;
 
-      const file = files[0];
+      const [file] = files;
       const content = await fetch(file.raw_url).then((r) => r.text());
 
       fs.writeFileSync(path.join(CONTENT_DIR, `${gist.id}.md`), content);
