@@ -39,29 +39,31 @@ async function saveGists() {
 
   try {
     const gists = await fetchAllGists();
-    const existingFiles = fs.existsSync(CONTENT_DIR)
-      ? fs.readdirSync(CONTENT_DIR)
-      : [];
 
-    if (gists.length === existingFiles.length) {
-      console.log("No new gists. Nothing to do.");
-      return;
+    if (!fs.existsSync(CONTENT_DIR)) {
+      fs.mkdirSync(CONTENT_DIR, { recursive: true });
     }
 
     for (const gist of gists) {
-      const files = Object.values(gist.files);
+      const filePath = path.join(CONTENT_DIR, `${gist.id}.md`);
 
+      if (fs.existsSync(filePath)) {
+        console.log(`${filePath} already exists, skipping.`);
+        continue;
+      }
+
+      const files = Object.values(gist.files);
       if (!files.length) continue;
 
       const [file] = files;
       const content = await fetch(file.raw_url).then((r) => r.text());
 
-      fs.writeFileSync(path.join(CONTENT_DIR, `${gist.id}.md`), content);
+      fs.writeFileSync(filePath, content);
     }
 
     console.log("Done.");
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
