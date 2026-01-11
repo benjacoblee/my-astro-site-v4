@@ -30,16 +30,18 @@ const images = Object.values(imageFiles as Record<string, Mod>)
   <Gap>
     <Heading variant="h1">Pics</Heading>
 
-    <div id="my-gallery" class="flex flex-col gap-4">
+    <div id="my-gallery" class="columns-1 gap-4 md:columns-3">
       {
         images.map((img) => (
-          <a
-            href={img.src}
-            data-pswp-width={img.width}
-            data-pswp-height={img.height}
-          >
-            <img src={img.src} alt="" class="block w-full object-cover" />
-          </a>
+          <div class="break-inside-avoid pb-4">
+            <a
+              href={img.src}
+              data-pswp-width={img.width}
+              data-pswp-height={img.height}
+            >
+              <img src={img.src} alt="" class="block w-full object-cover" />
+            </a>
+          </div>
         ))
       }
     </div>
