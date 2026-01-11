@@ -20,6 +20,10 @@ const navContents: Record<NavKey, ContentLink> = {
     to: "/microposts/1",
     text: "Microposts",
   },
+  [NavKey.PICS]: {
+    to: "/pics",
+    text: "Pics",
+  },
   [NavKey.TUNES]: {
     to: "/tunes",
     text: "Tunes",

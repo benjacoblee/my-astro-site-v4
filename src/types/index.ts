@@ -25,6 +25,7 @@ export enum NavKey {
   HOME,
   THOUGHTS,
   MICROPOSTS,
+  PICS,
   TUNES,
   CONTACT,
 }
