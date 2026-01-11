@@ -81,3 +81,7 @@ export interface Gist {
 }
 
 export type Micropost = CollectionEntry<"microposts">;
+
+export interface Mod {
+  default: { src: string; width: number; height: number };
+}

@@ -1,0 +1,60 @@
+---
+import Gap from "../components/gap.astro";
+import Heading from "../components/heading.astro";
+import Layout from "../components/layout.astro";
+
+import "photoswipe/style.css";
+import type { Mod } from "../types";
+
+const imageFiles = import.meta.glob("../assets/gallery/*.{jpg,png,webp}", {
+  eager: true,
+});
+
+const images = Object.values(imageFiles as Record<string, Mod>)
+  .map((val) => ({ val, sort: Math.random() }))
+  .sort((a, b) => a.sort - b.sort)
+  .map(
+    ({
+      val: {
+        default: { src, width, height },
+      },
+    }) => ({
+      src,
+      width,
+      height,
+    }),
+  );
+---
+
+<Layout title="/pics">
+  <Gap>
+    <Heading variant="h1">Pics</Heading>
+
+    <div id="my-gallery" class="flex flex-col gap-4">
+      {
+        images.map((img) => (
+          <a
+            href={img.src}
+            data-pswp-width={img.width}
+            data-pswp-height={img.height}
+          >
+            <img src={img.src} alt="" class="block w-full object-cover" />
+          </a>
+        ))
+      }
+    </div>
+  </Gap>
+</Layout>
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import PhotoSwipe from "photoswipe";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#my-gallery",
+    children: "a",
+    pswpModule: PhotoSwipe,
+  });
+
+  lightbox.init();
+</script>
