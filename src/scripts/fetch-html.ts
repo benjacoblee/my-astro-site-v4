@@ -8,7 +8,11 @@ async function fetchHtml() {
   const url = process.env.STRONG_HTML_URL ?? "";
   console.log(`Fetching html from ${url}`);
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    headers: {
+      "X-Predev-Secret": "my-ultra-secret-key",
+    },
+  });
   const workoutHtml = await res.text();
 
   console.log("Fetched html.");
