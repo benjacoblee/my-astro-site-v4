@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import { NavKey } from "../types";
 import { getNav, twm } from "../utils";
 import BaseHead from "./base-head.astro";
 import Card from "./card.astro";
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const { fullScreen = false, title } = Astro.props;
-const navContents = getNav({ omit: [NavKey.TUNES] });
+const navContents = getNav();
 ---
 
 <html lang="en">
@@ -36,7 +35,7 @@ const navContents = getNav({ omit: [NavKey.TUNES] });
       >
     </Card>
     <nav class="mx-auto flex w-[75%] items-center justify-center py-12">
-      <div class="flex gap-4">
+      <div class="flex flex-wrap justify-center gap-4">
         {
           Object.values(navContents).map(({ to, text }) => (
             <Link to={to}>{text}</Link>

@@ -7,11 +7,7 @@ import {
   type GetNavOpts,
 } from "../types";
 
-const navContents: Record<NavKey, ContentLink> = {
-  [NavKey.HOME]: {
-    to: "/",
-    text: "Home",
-  },
+const navContents: Partial<Record<NavKey, ContentLink>> = {
   [NavKey.THOUGHTS]: {
     to: "/thoughts",
     text: "Thoughts",
@@ -20,17 +16,9 @@ const navContents: Record<NavKey, ContentLink> = {
     to: "/microposts/1",
     text: "Microposts",
   },
-  // [NavKey.PICS]: {
-  //   to: "/pics",
-  //   text: "Pics",
-  // },
-  [NavKey.TUNES]: {
-    to: "/tunes",
-    text: "Tunes",
-  },
-  [NavKey.CONTACT]: {
-    to: "contact@bnjmn.me",
-    text: "Contact",
+  [NavKey.LAST_WORKOUT]: {
+    to: "/last-workout",
+    text: "Last Workout",
   },
 };
 

@@ -22,12 +22,9 @@ export interface ContentLink {
 }
 
 export enum NavKey {
-  HOME,
   THOUGHTS,
   MICROPOSTS,
-  // PICS,
-  TUNES,
-  CONTACT,
+  LAST_WORKOUT,
 }
 
 export interface GetNavOpts {
