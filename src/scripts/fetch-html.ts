@@ -10,7 +10,7 @@ async function fetchHtml() {
 
   const res = await fetch(url, {
     headers: {
-      "X-Predev-Secret": "my-ultra-secret-key",
+      "x-predev-secret": "my-ultra-secret-key",
     },
   });
   const workoutHtml = await res.text();
