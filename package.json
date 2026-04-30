@@ -3,9 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "predev": "tsx src/scripts/fetch-gists.ts && tsx src/scripts/fetch-html.ts",
     "dev": "astro dev",
-    "prebuild": "tsx src/scripts/fetch-gists.ts && tsx src/scripts/fetch-html.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
