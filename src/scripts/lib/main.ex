@@ -4,6 +4,7 @@ defmodule MyScript do
   def main(_args) do
     update_workout_html()
     copy_microposts()
+    if was_content_updated?(), do: git_push()
   end
 
   def get_rendered_html_for_workout do
@@ -34,5 +35,23 @@ defmodule MyScript do
     out_path = "/mnt/d/data/code/site-x/src/data/microposts"
     IO.puts("Copying microposts from #{in_path} to #{out_path}...")
     File.cp_r!(in_path, out_path)
+  end
+
+  def was_content_updated?() do
+    {contents, _} =
+      System.cmd("git", ["status", "/mnt/d/data/code/site-x", "--porcelain"])
+
+    lines = contents |> String.split("\n") |> Enum.reject(&(&1 == ""))
+
+    Enum.any?(lines, fn line ->
+      Enum.any?(["last-workout", "data/microposts"], &String.contains?(line, &1))
+    end)
+  end
+
+  def git_push do
+    IO.puts("Pushing to github...")
+    System.cmd("git", ["add", "/mnt/d/data/code/site-x"])
+    System.cmd("git", ["commit", "-m", "auto commit via hook"])
+    System.cmd("git", ["push"])
   end
 end
