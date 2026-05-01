@@ -24,8 +24,7 @@ const navContents: Partial<Record<NavKey, ContentLink>> = {
 
 export const twm = twMerge;
 
-export const fmtDate = (date: Date) =>
-  new Intl.DateTimeFormat("en-US").format(date);
+export const fmtDate = (date: Date) => date.toISOString().split("T")[0];
 
 export const getExcerpt = (body?: string) => {
   const cleaned = body?.replace(/^#{1,6}\s*/gm, "");
