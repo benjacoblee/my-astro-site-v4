@@ -4,7 +4,12 @@ defmodule MyScript do
   def main(_args) do
     update_workout_html()
     copy_microposts()
-    if was_content_updated?(), do: git_push()
+
+    if was_content_updated?() do
+      git_push()
+    else
+      IO.puts("Nothing to commit.")
+    end
   end
 
   def get_rendered_html_for_workout do
@@ -39,7 +44,7 @@ defmodule MyScript do
 
   def was_content_updated?() do
     {contents, _} =
-      System.cmd("git", ["status", "/mnt/d/data/code/site-x", "--porcelain"])
+      System.cmd("git", ["status", "/mnt/d/data/code/site-x/src", "--porcelain"])
 
     lines = contents |> String.split("\n") |> Enum.reject(&(&1 == ""))
 
@@ -50,7 +55,7 @@ defmodule MyScript do
 
   def git_push do
     IO.puts("Pushing to github...")
-    System.cmd("git", ["add", "/mnt/d/data/code/site-x"])
+    System.cmd("git", ["add", "/mnt/d/data/code/site-x/src"])
     System.cmd("git", ["commit", "-m", "auto commit via hook"])
     System.cmd("git", ["push"])
   end
